@@ -17,71 +17,24 @@
 		<project.reporting.outputEncoding>${encoding}</project.reporting.outputEncoding>
 
 		<spring.boot.version>3.0.6</spring.boot.version>
-		<openapi.generator.maven.plugin.version>6.5.0</openapi.generator.maven.plugin.version>
-		<jackson.databind.nullable.version>0.2.6</jackson.databind.nullable.version>
-		<javax.annotation.api.version>1.3.2</javax.annotation.api.version>
-		<jsr305.version>3.0.2</jsr305.version>
+		<openai.client.version>0.12.0</openai.client.version>
+		<jtokkit.version>0.4.0</jtokkit.version>
 	</properties>
 
 	<build>
 		<finalName>${project.artifactId}</finalName>
-		<plugins>
-			<plugin>
-				<groupId>org.openapitools</groupId>
-				<artifactId>openapi-generator-maven-plugin</artifactId>
-				<version>${openapi.generator.maven.plugin.version}</version>
-				<executions>
-					<execution>
-						<id>openai-api</id>
-						<goals>
-							<goal>generate</goal>
-						</goals>
-						<configuration>
-							<generatorName>java</generatorName>
-							<library>webclient</library>
-							<inputSpec>
-								${project.basedir}/src/main/resources/openai-relevant-api-spec.yaml
-							</inputSpec>
-							<configOptions>
-								<configPackage>
-									com.github.hakenadu.gptranslate.openai.config
-								</configPackage>
-								<apiPackage>
-									com.github.hakenadu.gptranslate.openai.api
-								</apiPackage>
-								<modelPackage>
-									com.github.hakenadu.gptranslate.openai.model
-								</modelPackage>
-								<invokerPackage>
-									com.github.hakenadu.gptranslate.openai.service
-								</invokerPackage>
-								<sourceFolder>openai-api</sourceFolder>
-								<dateLibrary>java8</dateLibrary>
-							</configOptions>
-							<generateModelTests>false</generateModelTests>
-							<generateApiTests>false</generateApiTests>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
 	</build>
 
 	<dependencies>
 		<dependency>
-			<groupId>org.openapitools</groupId>
-			<artifactId>jackson-databind-nullable</artifactId>
-			<version>${jackson.databind.nullable.version}</version>
+			<groupId>com.theokanning.openai-gpt3-java</groupId>
+			<artifactId>service</artifactId>
+			<version>${openai.client.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>javax.annotation</groupId>
-			<artifactId>javax.annotation-api</artifactId>
-			<version>${javax.annotation.api.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.code.findbugs</groupId>
-			<artifactId>jsr305</artifactId>
-			<version>${jsr305.version}</version>
+			<groupId>com.knuddels</groupId>
+			<artifactId>jtokkit</artifactId>
+			<version>${jtokkit.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

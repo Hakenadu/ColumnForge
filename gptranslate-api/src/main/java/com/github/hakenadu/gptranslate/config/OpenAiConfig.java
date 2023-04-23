@@ -1,37 +1,36 @@
 package com.github.hakenadu.gptranslate.config;
 
+import java.time.Duration;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.reactive.function.client.WebClient;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.hakenadu.gptranslate.openai.api.OpenAiApi;
-import com.github.hakenadu.gptranslate.openai.service.ApiClient;
+import com.theokanning.openai.OpenAiApi;
+import com.theokanning.openai.service.OpenAiService;
+
+import okhttp3.OkHttpClient;
+import retrofit2.Retrofit;
 
 @Configuration
 public class OpenAiConfig {
 
 	@Bean
-	public OpenAiApi openAiApi(final ApiClient apiClient) {
-		return new OpenAiApi(apiClient);
-	}
-
-	@Bean
-	public ApiClient apiClient(final WebClient webClient, final ObjectMapper objectMapper,
-			final @Value("${gptranslate.openai.api-key}") String openAiApiKey) {
-		final ApiClient apiClient = new ApiClient(webClient, objectMapper, ApiClient.createDefaultDateFormat());
-		apiClient.setBearerToken(openAiApiKey);
-		return apiClient;
-	}
-
-	@Bean
-	public WebClient webClient(final ObjectMapper objectMapper) {
-		return ApiClient.buildWebClient(objectMapper);
+	public OpenAiService apiClient(final ObjectMapper objectMapper,
+			final @Value("${gptranslate.openai.api-key:#{null}}") String openAiApiKey) {
+		return createOpenAiService(objectMapper, openAiApiKey);
 	}
 
 	@Bean
 	public ObjectMapper objectMapper() {
-		return ApiClient.createDefaultObjectMapper(ApiClient.createDefaultDateFormat());
+		return OpenAiService.defaultObjectMapper();
+	}
+
+	public static OpenAiService createOpenAiService(final ObjectMapper objectMapper, final String openAiApiKey) {
+		final OkHttpClient client = OpenAiService.defaultClient(openAiApiKey, Duration.ofSeconds(10L));
+		final Retrofit retrofit = OpenAiService.defaultRetrofit(client, objectMapper);
+		final OpenAiApi api = retrofit.create(OpenAiApi.class);
+		return new OpenAiService(api, client.dispatcher().executorService());
 	}
 }

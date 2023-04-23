@@ -3,37 +3,37 @@ package com.github.hakenadu.gptranslate.openai;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.github.hakenadu.gptranslate.openai.api.OpenAiApi;
-import com.github.hakenadu.gptranslate.openai.model.ChatCompletionRequestMessage;
-import com.github.hakenadu.gptranslate.openai.model.ChatCompletionResponseMessage;
-import com.github.hakenadu.gptranslate.openai.model.ChatMessageRole;
-import com.github.hakenadu.gptranslate.openai.model.CreateChatCompletionRequest;
-import com.github.hakenadu.gptranslate.openai.model.CreateChatCompletionResponse;
-import com.github.hakenadu.gptranslate.openai.model.CreateChatCompletionResponseChoicesInner;
+import com.theokanning.openai.completion.chat.ChatCompletionChoice;
+import com.theokanning.openai.completion.chat.ChatCompletionRequest;
+import com.theokanning.openai.completion.chat.ChatCompletionResult;
+import com.theokanning.openai.completion.chat.ChatMessage;
+import com.theokanning.openai.service.OpenAiService;
 
 @SpringBootTest
 public class OpenAiApiTest {
 
 	@Autowired
-	private OpenAiApi openAiApi;
+	private OpenAiService openAiService;
 
 	@Test
 	public void testCreateChatCompletion() {
-		final CreateChatCompletionRequest request = new CreateChatCompletionRequest().model("gpt-3.5-turbo")
-				.addMessagesItem(new ChatCompletionRequestMessage().role(ChatMessageRole.USER).content("Hallo"));
+		final ChatCompletionRequest request = ChatCompletionRequest.builder().model("gpt-3.5-turbo")
+				.messages(List.of(new ChatMessage("user", "Hallo Welt"))).build();
 
-		final CreateChatCompletionResponse response = openAiApi.createChatCompletion(request).block();
+		final ChatCompletionResult response = openAiService.createChatCompletion(request);
 		assertNotNull(response, "no response");
 		assertNotNull(response.getChoices(), "null instead of choices");
 		assertEquals(1, response.getChoices().size(), "unexpected choices count");
 
-		final CreateChatCompletionResponseChoicesInner choice = response.getChoices().get(0);
+		final ChatCompletionChoice choice = response.getChoices().get(0);
 
-		final ChatCompletionResponseMessage message = choice.getMessage();
+		final ChatMessage message = choice.getMessage();
 		assertNotNull(message, "no message");
 		assertNotNull(message.getContent(), "no message content");
 	}
