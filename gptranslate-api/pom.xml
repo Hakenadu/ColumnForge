@@ -19,6 +19,7 @@
 		<spring.boot.version>3.0.6</spring.boot.version>
 		<openai.client.version>0.12.0</openai.client.version>
 		<jtokkit.version>0.4.0</jtokkit.version>
+		<commons.csv.version>1.10.0</commons.csv.version>
 	</properties>
 
 	<build>
@@ -37,25 +38,37 @@
 			<version>${jtokkit.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-csv</artifactId>
+			<version>${commons.csv.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>
+				org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			<version>${spring.boot.version}</version>
+			<version>
+				${spring.boot.version}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>ch.qos.logback</groupId>
-					<artifactId>logback-classic</artifactId>
+					<artifactId>
+						logback-classic</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
+			<groupId>
+				org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>
-			<version>${spring.boot.version}</version>
+			<version>
+				${spring.boot.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
+			<groupId>
+				org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
-			<version>${spring.boot.version}</version>
+			<version>
+				${spring.boot.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

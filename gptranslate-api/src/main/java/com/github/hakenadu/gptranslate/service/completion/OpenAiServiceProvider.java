@@ -1,4 +1,4 @@
-package com.github.hakenadu.gptranslate.service;
+package com.github.hakenadu.gptranslate.service.completion;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
