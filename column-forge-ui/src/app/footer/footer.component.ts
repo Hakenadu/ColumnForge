@@ -8,6 +8,7 @@ import {DataService} from '../services/data.service';
 })
 export class FooterComponent {
 
+  loading = false;
   currentRecordIndex?: number;
 
   constructor(private dataService: DataService) {
@@ -15,11 +16,13 @@ export class FooterComponent {
 
   forge() {
     this.currentRecordIndex = 0;
+    this.loading = true;
     this.forgeResultForCurrentRecordIndex();
   }
 
   private forgeResultForCurrentRecordIndex() {
     if (this.currentRecordIndex === undefined || this.currentRecordIndex >= this.dataService.data!.records.length) {
+      this.loading = false;
       return;
     }
     this.dataService.runCompletionOnRecord(this.currentRecordIndex).subscribe(data => {

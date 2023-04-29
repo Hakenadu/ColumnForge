@@ -1,3 +1,12 @@
+.title-wrapper {
+  padding-left: 1em;
+  padding-right: 5em;
+  display: flex;
+  align-items: center ;
+  height: 100%;
+  background: linear-gradient(225deg, #212121 25%, #E92E2E 25%)
+}
+
 .app-forge-button {
   background-color: #E92E2E !important;
 }

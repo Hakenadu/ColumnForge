@@ -1,9 +1,15 @@
-<mat-toolbar class="d-flex w-100">
-  <h1 class="flex-grow-1">Column Forge</h1>
-  <button mat-raised-button
-          class="app-forge-button"
-          (click)="forge()">
-    <mat-icon>local_fire_department</mat-icon>
-    Forge a new Column
-  </button>
+<mat-toolbar class="d-flex w-100 p-0">
+  <div class="title-wrapper">
+    <h1>Column Forge</h1>
+  </div>
+  <div class="flex-grow-1 d-flex flex-row justify-content-end px-1 align-items-center">
+    <button mat-raised-button
+            class="app-forge-button mx-2"
+            [disabled]="loading"
+            (click)="forge()">
+      <mat-icon>local_fire_department</mat-icon>
+      Forge a new Column
+    </button>
+    <app-spinner *ngIf="loading"></app-spinner>
+  </div>
 </mat-toolbar>
