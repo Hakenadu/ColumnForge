@@ -1,11 +1,11 @@
-package com.github.hakenadu.gptranslate.service.completion;
+package com.github.hakenadu.columnforge.service.completion;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.hakenadu.gptranslate.config.OpenAiConfig;
-import com.github.hakenadu.gptranslate.filter.OpenAiApiKeyFilter;
+import com.github.hakenadu.columnforge.config.OpenAiConfig;
+import com.github.hakenadu.columnforge.filter.OpenAiApiKeyFilter;
 import com.theokanning.openai.service.OpenAiService;
 
 @Component

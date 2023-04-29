@@ -1,6 +1,6 @@
-package com.github.hakenadu.gptranslate.model;
+package com.github.hakenadu.columnforge.model;
 
-public class CsvTranslationRequestData extends TranslationRequestData {
+public class CsvTransformationRequestData extends TransformationRequestData {
 
 	private String content;
 	private String delimiter;

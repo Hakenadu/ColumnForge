@@ -1,4 +1,4 @@
-package com.github.hakenadu.gptranslate.service.storage.limited;
+package com.github.hakenadu.columnforge.service.storage.limited;
 
 import java.util.concurrent.Delayed;
 import java.util.concurrent.TimeUnit;

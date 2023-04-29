@@ -1,4 +1,4 @@
-package com.github.hakenadu.gptranslate.config;
+package com.github.hakenadu.columnforge.config;
 
 import java.time.Duration;
 
@@ -18,7 +18,7 @@ public class OpenAiConfig {
 
 	@Bean
 	public OpenAiService apiClient(final ObjectMapper objectMapper,
-			final @Value("${gptranslate.openai.api-key:#{null}}") String openAiApiKey) {
+			final @Value("${column-forge.openai.api-key:#{null}}") String openAiApiKey) {
 		return createOpenAiService(objectMapper, openAiApiKey);
 	}
 

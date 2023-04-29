@@ -1,4 +1,4 @@
-package com.github.hakenadu.gptranslate;
+package com.github.hakenadu.columnforge;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

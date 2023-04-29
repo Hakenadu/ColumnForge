@@ -1,4 +1,4 @@
-package com.github.hakenadu.gptranslate.filter;
+package com.github.hakenadu.columnforge.filter;
 
 import java.io.IOException;
 

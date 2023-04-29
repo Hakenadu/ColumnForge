@@ -1,11 +1,11 @@
-package com.github.hakenadu.gptranslate.model;
+package com.github.hakenadu.columnforge.model;
 
-public class TranslationRequest {
+public class TransformationRequest {
 
 	private String model;
 	private String systemScope;
 	private Boolean streaming;
-	private TranslationRequestData data;
+	private TransformationRequestData data;
 
 	public String getModel() {
 		return model;
@@ -23,11 +23,11 @@ public class TranslationRequest {
 		this.systemScope = systemScope;
 	}
 
-	public TranslationRequestData getData() {
+	public TransformationRequestData getData() {
 		return data;
 	}
 
-	public void setData(final TranslationRequestData data) {
+	public void setData(final TransformationRequestData data) {
 		this.data = data;
 	}
 

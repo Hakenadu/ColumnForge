@@ -1,4 +1,4 @@
-package com.github.hakenadu.gptranslate.openai;
+package com.github.hakenadu.columnforge.openai;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
