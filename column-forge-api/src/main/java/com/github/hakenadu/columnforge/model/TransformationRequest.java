@@ -3,6 +3,7 @@ package com.github.hakenadu.columnforge.model;
 public class TransformationRequest {
 
 	private String model;
+	private String apiKey;
 	private String query;
 	private TransformationRequestData data;
 
@@ -28,5 +29,13 @@ public class TransformationRequest {
 
 	public void setQuery(final String query) {
 		this.query = query;
+	}
+
+	public String getApiKey() {
+		return apiKey;
+	}
+
+	public void setApiKey(final String apiKey) {
+		this.apiKey = apiKey;
 	}
 }

@@ -1,0 +1,39 @@
+.app-subtitle {
+  code {
+    color: #E92E2E;
+  }
+}
+
+.ace-wrapper {
+  position: relative;
+
+  ::ng-deep {
+    .ace_editor {
+      font-size: 16px;
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
+
+      .ace_scroller {
+        border-bottom-left-radius: 4px;
+      }
+    }
+  }
+
+  .app-placeholders {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 1em;
+
+    ::ng-deep {
+      .mdc-evolution-chip-set__chips {
+        justify-content: end;
+      }
+    }
+
+    mat-chip {
+      background-color: #E92E2E;
+    }
+  }
+
+}

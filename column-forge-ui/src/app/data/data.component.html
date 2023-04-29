@@ -1,0 +1,25 @@
+<div class="h-100 w-100 d-flex flex-column align-items-center justify-content-start p-2 p-lg-5">
+  <ng-particles class="app-particles"
+                [options]="particlesOptions"
+                [particlesInit]="particlesInit">
+  </ng-particles>
+  <div *ngIf="!dataService.data" class="h-100 w-100 d-flex align-items-center justify-content-center">
+    <input #fileInput hidden (change)="readFile($event)" type="file">
+    <button mat-raised-button (click)="fileInput.click()">
+      <mat-icon>folder_open</mat-icon>
+      Open Dataset (.csv)
+    </button>
+  </div>
+  <mat-card *ngIf="dataService.data" class="border">
+    <table class="app-table">
+      <tr class="app-table-header-row">
+        <th *ngFor="let header of dataService.data.header" class="app-table-header-cell">{{ header }}</th>
+      </tr>
+      <tbody>
+      <tr *ngFor="let row of dataService.data.records" class="app-table-row">
+        <td class="app-table-cell" *ngFor="let cell of row">{{ cell }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </mat-card>
+</div>

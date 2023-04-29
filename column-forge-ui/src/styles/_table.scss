@@ -1,0 +1,21 @@
+.app-table {
+  .app-table-header-row {
+    border-bottom: 1px solid #999;
+
+    .app-table-header-cell {
+      vertical-align: bottom;
+    }
+  }
+
+  .app-table-header-cell, .app-table-cell {
+    padding: 0.25em;
+  }
+
+  .app-table-row {
+    &:nth-child(odd) {
+      .app-table-cell {
+        background-color: #555555;
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+<mat-card class="h-100 position-sticky sticky-top">
+  <mat-card-header>
+    <h2 mat-card-title>Prompt</h2>
+    <mat-card-subtitle class="pb-2 app-subtitle">
+      You can modify the prompt for creating columns in this window.
+      Use placeholders in the format <code>{{'${myDataColumnName}'}}</code> to inject
+      values from the column <code>myDataColumnName</code> in your dataset.
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content class="flex-grow-1 p-0">
+    <div class="ace-wrapper h-100 w-100" (onResize)="onResized($event)">
+      <div #editor class="w-100 h-100"></div>
+      <div *ngIf="promptService.placeholders"
+           class="app-placeholders">
+        <mat-chip-listbox>
+          <mat-chip *ngFor="let placeholder of promptService.placeholders">{{placeholder}}</mat-chip>
+        </mat-chip-listbox>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

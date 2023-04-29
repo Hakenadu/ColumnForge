@@ -3,6 +3,7 @@ package com.github.hakenadu.columnforge.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import com.github.hakenadu.columnforge.model.TransformationRequest;
 import com.github.hakenadu.columnforge.service.transformation.TransformationService;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/v1/transformations")
 public class TransformationsController {
 

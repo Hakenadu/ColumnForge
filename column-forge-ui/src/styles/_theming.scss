@@ -1,0 +1,14 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+$column-forge-ui-primary: mat.define-palette(mat.$indigo-palette);
+$column-forge-ui-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$column-forge-ui-warn: mat.define-palette(mat.$red-palette);
+$column-forge-ui-theme: mat.define-dark-theme((
+  color: (
+    primary: $column-forge-ui-primary,
+    accent: $column-forge-ui-accent,
+    warn: $column-forge-ui-warn,
+  )
+));
+@include mat.all-component-themes($column-forge-ui-theme);

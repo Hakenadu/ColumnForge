@@ -13,7 +13,6 @@ public class CsvTransformationRequestData extends TransformationRequestData {
 		this.delimiter = delimiter;
 	}
 
-	@Override
 	public String getContent() {
 		return content;
 	}

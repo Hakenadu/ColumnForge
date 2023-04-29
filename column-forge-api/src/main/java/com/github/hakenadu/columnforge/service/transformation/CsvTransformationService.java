@@ -64,7 +64,7 @@ public class CsvTransformationService implements TransformationService {
 
 		final String query = queryResolver.resolve(request.getQuery(), systemContextVariables);
 
-		final String completion = chatCompletionService.getCompletion(request.getModel(), query);
+		final String completion = chatCompletionService.getCompletion(request.getModel(), query, request.getApiKey());
 
 		final List<String> values = Arrays.stream(parserRecord.values())
 				.collect(Collectors.toCollection(ArrayList::new));

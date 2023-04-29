@@ -18,23 +18,23 @@ public class OpenAiChatCompletionService implements CompletionService {
 	private OpenAiServiceProvider openAiServiceProvider;
 
 	@Override
-	public String getCompletion(final String model, final String query) {
+	public String getCompletion(final String model, final String query, final String apiKey) {
 		final ChatCompletionRequest request = createRequest(model, query);
-		return openAiServiceProvider.getService().createChatCompletion(request).getChoices().get(0).getMessage()
+		return openAiServiceProvider.getService(apiKey).createChatCompletion(request).getChoices().get(0).getMessage()
 				.getContent();
 	}
 
 	@Override
-	public Flux<String> streamCompletion(final String model, final String query) {
+	public Flux<String> streamCompletion(final String model, final String query, final String apiKey) {
 		final ChatCompletionRequest request = createRequest(model, query);
-		return Flux.from(openAiServiceProvider.getService().streamChatCompletion(request)
+		return Flux.from(openAiServiceProvider.getService(apiKey).streamChatCompletion(request)
 				.filter(chunk -> !chunk.getChoices().isEmpty()).map(chunk -> chunk.getChoices().get(0))
 				.map(ChatCompletionChoice::getMessage).filter(message -> message.getContent() != null)
 				.map(ChatMessage::getContent));
 	}
 
 	private ChatCompletionRequest createRequest(final String model, final String query) {
-		return ChatCompletionRequest.builder().temperature(1D).model(model)
+		return ChatCompletionRequest.builder().temperature(0D).model(model)
 				.messages(List.of(new ChatMessage("user", query))).build();
 	}
 

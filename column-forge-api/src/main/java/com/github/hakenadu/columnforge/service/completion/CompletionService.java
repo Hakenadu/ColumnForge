@@ -4,7 +4,7 @@ import reactor.core.publisher.Flux;
 
 public interface CompletionService {
 
-	String getCompletion(String model, String query);
+	String getCompletion(String model, String query, String apiKey);
 
-	Flux<String> streamCompletion(String model, String query);
+	Flux<String> streamCompletion(String model, String query, String apiKey);
 }

@@ -1,0 +1,21 @@
+<div class="w-100 h-100 d-flex flex-column">
+  <div class="flex-grow-1 overflow-auto">
+    <as-split [direction]="splitDirection || 'horizontal'"
+              [gutterSize]="8">
+
+      <as-split-area>
+        <div class="h-100 w-100">
+          <app-prompt></app-prompt>
+        </div>
+      </as-split-area>
+
+      <as-split-area>
+        <div class="h-100 w-100">
+          <app-data></app-data>
+        </div>
+      </as-split-area>
+
+    </as-split>
+  </div>
+  <app-footer></app-footer>
+</div>
