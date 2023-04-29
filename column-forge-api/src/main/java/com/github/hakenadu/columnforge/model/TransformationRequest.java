@@ -3,8 +3,7 @@ package com.github.hakenadu.columnforge.model;
 public class TransformationRequest {
 
 	private String model;
-	private String systemScope;
-	private Boolean streaming;
+	private String query;
 	private TransformationRequestData data;
 
 	public String getModel() {
@@ -15,14 +14,6 @@ public class TransformationRequest {
 		this.model = model;
 	}
 
-	public String getSystemScope() {
-		return systemScope;
-	}
-
-	public void setSystemScope(final String systemScope) {
-		this.systemScope = systemScope;
-	}
-
 	public TransformationRequestData getData() {
 		return data;
 	}
@@ -31,11 +22,11 @@ public class TransformationRequest {
 		this.data = data;
 	}
 
-	public Boolean getStreaming() {
-		return streaming;
+	public String getQuery() {
+		return query;
 	}
 
-	public void setStreaming(final Boolean streaming) {
-		this.streaming = streaming;
+	public void setQuery(final String query) {
+		this.query = query;
 	}
 }

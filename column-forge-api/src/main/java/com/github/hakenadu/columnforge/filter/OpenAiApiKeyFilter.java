@@ -24,6 +24,8 @@ public final class OpenAiApiKeyFilter implements Filter {
 	@Override
 	public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain)
 			throws IOException, ServletException {
+		API_KEY_THREAD_LOCAL.remove(); // just to be sure
+
 		final HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 
 		final String authorizationHeader = httpServletRequest.getHeader(HttpHeaders.AUTHORIZATION);
