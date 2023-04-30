@@ -72,18 +72,21 @@ export class PromptComponent implements OnInit, AfterViewInit, OnDestroy {
       });
 
       let lockEditorUpdate = false;
-
       this.editor.session.on('change', () => {
         if (!lockEditorUpdate) {
+          lockEditorUpdate = true;
           this.promptService.prompt = this.editor.getValue();
           this.changeDetectorRef.detectChanges();
+          lockEditorUpdate = false;
         }
       });
 
       this.promptChangedSubscription = this.promptService.prompt$.subscribe(prompt => {
-        lockEditorUpdate = true;
-        this.editor.setValue(prompt, 1);
-        lockEditorUpdate = false;
+        if (!lockEditorUpdate) {
+          lockEditorUpdate = true;
+          this.editor.setValue(prompt, 1);
+          lockEditorUpdate = false;
+        }
       });
 
       this.promptService.prompt = 'you are a system for translating texts into ${language} language.\nonly answer with the translation.\n\nhere is the text:\n${text}';

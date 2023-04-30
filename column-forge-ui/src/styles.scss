@@ -3,6 +3,16 @@
 @import "styles/table";
 @import "styles/spinner";
 
+::-moz-selection {
+  background-color: #E92E2E;
+  color: $light;
+}
+
+::selection {
+  background-color: #E92E2E;
+  color: $light;
+}
+
 html, body {
   height: 100%;
 }
