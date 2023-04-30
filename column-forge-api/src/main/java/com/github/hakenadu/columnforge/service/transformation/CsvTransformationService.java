@@ -42,7 +42,8 @@ public class CsvTransformationService implements TransformationService {
 				final StringWriter writer = new StringWriter();
 				final CSVPrinter printer = new CSVPrinter(writer,
 						CSVFormat.DEFAULT.builder().setDelimiter(requestData.getDelimiter())
-								.setHeader(Stream.concat(parser.getHeaderMap().keySet().stream(), Stream.of("result"))
+								.setHeader(Stream
+										.concat(parser.getHeaderMap().keySet().stream(), Stream.of("forgedColumn"))
 										.toArray(String[]::new))
 								.setTrim(true).build())) {
 

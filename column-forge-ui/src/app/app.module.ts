@@ -15,7 +15,10 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatChipsModule} from '@angular/material/chips';
 import {NgParticlesModule} from 'ng-particles';
 import {HttpClientModule} from '@angular/common/http';
-import { SpinnerComponent } from './spinner/spinner.component';
+import {SpinnerComponent} from './spinner/spinner.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -36,7 +39,10 @@ import { SpinnerComponent } from './spinner/spinner.component';
     MatToolbarModule,
     MatIconModule,
     MatChipsModule,
-    NgParticlesModule
+    MatProgressSpinnerModule,
+    MatMenuModule,
+    NgParticlesModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

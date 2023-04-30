@@ -5,3 +5,11 @@
 .border {
   border-width: 2px !important;
 }
+
+.app-open-dataset-button {
+  min-height: 36px;
+}
+
+.app-table-header-cell:not(.app-table-cell-forged) {
+  cursor: pointer;
+}

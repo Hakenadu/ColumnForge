@@ -1,25 +1,45 @@
 <div class="h-100 w-100 d-flex flex-column align-items-center justify-content-start p-2 p-lg-5">
-  <ng-particles class="app-particles"
+  <ng-particles *ngIf="!hideParticles"
+                class="app-particles"
                 [options]="particlesOptions"
                 [particlesInit]="particlesInit">
   </ng-particles>
-  <div *ngIf="!dataService.data" class="h-100 w-100 d-flex align-items-center justify-content-center">
-    <input #fileInput hidden (change)="readFile($event)" type="file">
-    <button mat-raised-button (click)="fileInput.click()">
-      <mat-icon>folder_open</mat-icon>
-      Open Dataset (.csv)
-    </button>
-  </div>
+  <input #fileInput hidden (change)="readFile($event)" type="file" accept=".csv">
+  <button class="app-open-dataset-button mb-4" mat-raised-button (click)="fileInput.click()">
+    <mat-icon>folder_open</mat-icon>
+    Open Dataset (.csv)
+  </button>
   <mat-card *ngIf="dataService.data" class="border">
-    <table class="app-table">
-      <tr class="app-table-header-row">
-        <th *ngFor="let header of dataService.data.header" class="app-table-header-cell">{{ header }}</th>
-      </tr>
-      <tbody>
-      <tr *ngFor="let row of dataService.data.records" class="app-table-row">
-        <td class="app-table-cell" *ngFor="let cell of row">{{ cell }}</td>
-      </tr>
-      </tbody>
-    </table>
+    <mat-card-content class="p-0">
+      <table class="app-table">
+        <tr class="app-table-header-row">
+          <th *ngFor="let header of dataService.data.header"
+              [ngClass]="{
+                'app-table-cell-highlighted': promptService.placeholders.includes(header),
+                'app-table-cell-forged': header==='forgedColumn'
+              }"
+              class="app-table-header-cell"
+              (click)="addPlaceholder(header)">
+            {{ header }}
+          </th>
+        </tr>
+        <tbody>
+        <tr *ngFor="let row of dataService.data.records" class="app-table-row">
+          <td *ngFor="let cell of row; let idx = index"
+              class="app-table-cell"
+              [ngClass]="{'app-table-cell-forged': dataService.data.header[idx]==='forgedColumn'}">
+            {{ cell }}
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button mat-icon-button
+              matTooltip="download dataset"
+              (click)="dataService.downloadData('dataset.csv')">
+        <mat-icon>download</mat-icon>
+      </button>
+    </mat-card-actions>
   </mat-card>
 </div>

@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PromptService {
 
-  private _prompt?: string;
+  prompt$ = new BehaviorSubject<string | undefined>(undefined);
 
   placeholders: string[] = [];
 
@@ -24,13 +25,13 @@ export class PromptService {
   }
 
   set prompt(prompt: string | undefined) {
-    if (prompt !== this._prompt) {
-      this._prompt = prompt;
+    if (prompt !== this.prompt$.value) {
+      this.prompt$.next(prompt);
       this.updatePlaceholders();
     }
   }
 
   get prompt(): string | undefined {
-    return this._prompt;
+    return this.prompt$.value;
   }
 }

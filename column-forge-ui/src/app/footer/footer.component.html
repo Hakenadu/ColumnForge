@@ -3,13 +3,42 @@
     <h1>Column Forge</h1>
   </div>
   <div class="flex-grow-1 d-flex flex-row justify-content-end px-1 align-items-center">
-    <button mat-raised-button
+    <button mat-button
+            *ngIf="dataService.invalidMessages.length > 0"
+            class="me-2"
+            color="warn"
+            [matMenuTriggerFor]="menu">
+      there are errors
+    </button>
+    <button *ngIf="dataService.data"
+            mat-icon-button
+            matTooltip="download dataset"
+            (click)="dataService.downloadData('dataset.csv')">
+      <mat-icon>download</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <div class="p-2 pe-4">
+        <ul class="m-0">
+          <li *ngFor="let invalidMessage of dataService.invalidMessages">{{invalidMessage}}</li>
+        </ul>
+      </div>
+    </mat-menu>
+    <button *ngIf="loading"
+            mat-raised-button
             class="app-forge-button mx-2"
-            [disabled]="loading"
+            [disabled]="currentRecordIndex===undefined"
+            (click)="stopGenerating()">
+      <mat-icon>stop</mat-icon>
+      {{currentRecordIndex === undefined ? 'Cancelling...' : 'Stop generating'}}
+    </button>
+    <button *ngIf="!loading"
+            mat-raised-button
+            class="app-forge-button mx-2"
+            [disabled]="dataService.invalidMessages.length > 0"
             (click)="forge()">
       <mat-icon>local_fire_department</mat-icon>
       Forge a new Column
     </button>
-    <app-spinner *ngIf="loading"></app-spinner>
+    <mat-spinner *ngIf="loading" [diameter]="32"></mat-spinner>
   </div>
 </mat-toolbar>

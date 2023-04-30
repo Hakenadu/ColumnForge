@@ -1,8 +1,9 @@
 // @ts-nocheck
 
-import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import ace, {Ace} from 'ace-builds';
 import {PromptService} from '../services/prompt.service';
+import {Subscription} from 'rxjs';
 
 const oop = ace.require('ace/lib/oop');
 const TextMode = ace.require('ace/mode/text').Mode;
@@ -18,7 +19,7 @@ const CustomHighlightRules = function () {
     start: [
       {
         token: "support.function.source.wsd",
-        regex: /\$\{\w+\}/
+        regex: /\$\{[\w\s]+\}/
       }
     ]
   };
@@ -40,12 +41,14 @@ oop.inherits(Mode, TextMode);
   templateUrl: './prompt.component.html',
   styleUrls: ['prompt.component.scss']
 })
-export class PromptComponent implements OnInit, AfterViewInit {
+export class PromptComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private editor: Ace.Editor;
 
   @ViewChild('editor')
   editorRef?: ElementRef<HTMLDivElement>;
+
+  private promptChangedSubscription?: Subscription;
 
   constructor(public promptService: PromptService, private changeDetectorRef: ChangeDetectorRef) {
 
@@ -68,14 +71,28 @@ export class PromptComponent implements OnInit, AfterViewInit {
         enableBasicAutocompletion: true
       });
 
+      let lockEditorUpdate = false;
+
       this.editor.session.on('change', () => {
-        this.promptService.prompt = this.editor.getValue();
-        this.changeDetectorRef.detectChanges();
+        if (!lockEditorUpdate) {
+          this.promptService.prompt = this.editor.getValue();
+          this.changeDetectorRef.detectChanges();
+        }
       });
 
-      const initialPrompt = this.promptService.prompt ?? 'you are a system for translating texts into ${language} language.\nonly answer with the translation.\n\nhere is the text:\n${text}';
-      this.editor.setValue(initialPrompt, 1);
+      this.promptChangedSubscription = this.promptService.prompt$.subscribe(prompt => {
+        lockEditorUpdate = true;
+        this.editor.setValue(prompt, 1);
+        lockEditorUpdate = false;
+      });
+
+      this.promptService.prompt = 'you are a system for translating texts into ${language} language.\nonly answer with the translation.\n\nhere is the text:\n${text}';
+      this.changeDetectorRef.detectChanges();
     }
+  }
+
+  ngOnDestroy() {
+    this.promptChangedSubscription?.unsubscribe();
   }
 
   onResized($event: ResizeObserverEntry) {

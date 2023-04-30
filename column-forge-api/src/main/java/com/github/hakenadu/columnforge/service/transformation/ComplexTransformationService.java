@@ -32,7 +32,7 @@ public class ComplexTransformationService implements TransformationService {
 		final ComplexTransformationRequestData requestData = (ComplexTransformationRequestData) request.getData();
 
 		final ComplexTransformationRequestData result = new ComplexTransformationRequestData();
-		result.setHeader(Stream.concat(requestData.getHeader().stream(), Stream.of("result")).toList());
+		result.setHeader(Stream.concat(requestData.getHeader().stream(), Stream.of("forgedColumn")).toList());
 		result.setRecords(requestData.getRecords().stream()
 				.map(inputRecord -> processRecord(inputRecord, requestData.getHeader(), request)).toList());
 		try {

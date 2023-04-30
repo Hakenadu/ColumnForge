@@ -1,0 +1,13 @@
+.mat-mdc-progress-spinner {
+  .mdc-circular-progress__circle-left, .mdc-circular-progress__gap-patch {
+    circle {
+      stroke: #E92E2E;
+    }
+  }
+
+  .mdc-circular-progress__circle-right {
+    circle {
+      stroke: white;
+    }
+  }
+}

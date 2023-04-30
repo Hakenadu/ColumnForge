@@ -1,8 +1,9 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Papa} from 'ngx-papaparse';
 import {ClickMode, Engine, HoverMode, MoveDirection, OutMode} from "tsparticles-engine";
 import {loadFull} from 'tsparticles';
 import {DataService} from '../services/data.service';
+import {PromptService} from '../services/prompt.service';
 
 @Component({
   selector: 'app-data',
@@ -83,11 +84,13 @@ export class DataComponent {
     detectRetina: true,
   };
 
+  hideParticles = false;
+
   async particlesInit(engine: Engine): Promise<void> {
     await loadFull(engine);
   }
 
-  constructor(public dataService: DataService, private papa: Papa) {
+  constructor(public dataService: DataService, public promptService: PromptService, private papa: Papa) {
   }
 
   readFile(event: Event) {
@@ -105,6 +108,12 @@ export class DataComponent {
           }
         });
       }
+    }
+  }
+
+  addPlaceholder(header: string) {
+    if (header !== 'forgedColumn') {
+      this.promptService.prompt = this.promptService.prompt + '${' + header + '}'
     }
   }
 }

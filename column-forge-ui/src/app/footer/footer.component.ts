@@ -11,10 +11,11 @@ export class FooterComponent {
   loading = false;
   currentRecordIndex?: number;
 
-  constructor(private dataService: DataService) {
+  constructor(public dataService: DataService) {
   }
 
   forge() {
+    this.dataService.resetDataset();
     this.currentRecordIndex = 0;
     this.loading = true;
     this.forgeResultForCurrentRecordIndex();
@@ -25,13 +26,17 @@ export class FooterComponent {
       this.loading = false;
       return;
     }
+    const index = this.currentRecordIndex;
     this.dataService.runCompletionOnRecord(this.currentRecordIndex).subscribe(data => {
-      if (this.currentRecordIndex === undefined) {
-        throw new Error('wtf');
+      this.dataService.updateDataAtIndex(index, 0, data);
+      if (this.currentRecordIndex !== undefined) {
+        this.currentRecordIndex! += 1;
       }
-      this.dataService.updateDataAtIndex(this.currentRecordIndex, 0, data);
-      this.currentRecordIndex! += 1;
       this.forgeResultForCurrentRecordIndex();
     });
+  }
+
+  stopGenerating() {
+    this.currentRecordIndex = undefined;
   }
 }
