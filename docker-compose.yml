@@ -1,0 +1,9 @@
+version: '3'
+services:
+  column-forge-api:
+    image: hakenadu/column-forge-api
+    container_name: column-forge-api
+    build:
+      context: ./column-forge-api
+    ports:
+    - 8080:8080
