@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {environment} from '../../environments/environment';
 import {PromptService} from './prompt.service';
 import {saveAs} from 'file-saver';
 import {Papa} from 'ngx-papaparse';
 import {ApiKeyService} from './api-key.service';
+import {Environment, ENVIRONMENT} from '../../environments/environment';
 
 interface TransformationRequest {
   model: string;
@@ -30,7 +30,8 @@ export class DataService {
   constructor(private httpClient: HttpClient,
               private promptService: PromptService,
               private apiKeyService: ApiKeyService,
-              private papa: Papa) {
+              private papa: Papa,
+              @Inject(ENVIRONMENT) private env: Environment) {
   }
 
   get invalidMessages(): string[] {
@@ -80,7 +81,7 @@ export class DataService {
         records: [this.data.records[index]]
       }
     };
-    return this.httpClient.post<Data>(`${environment.apiUrl}/v1/transformations`, request, {});
+    return this.httpClient.post<Data>(`${this.env.apiUrl}/v1/transformations`, request, {});
   }
 
   updateDataAtIndex(targetIndex: number, sourceIndex: number, sourceData: Data) {
@@ -95,7 +96,7 @@ export class DataService {
     if (!this.data) {
       throw new Error('no data');
     }
-    const csv = this.papa.unparse(
+    return this.papa.unparse(
       {
         data: this.data.records,
         fields: this.data.header
@@ -103,7 +104,6 @@ export class DataService {
       {
         header: true
       });
-    return csv;
   }
 
   public downloadData(filename: string) {

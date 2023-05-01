@@ -6,12 +6,9 @@ import {BehaviorSubject} from 'rxjs';
 })
 export class PromptService {
 
-  prompt$ = new BehaviorSubject<string | undefined>(undefined);
+  prompt$ = new BehaviorSubject<string | undefined>(localStorage.getItem('column-forge.prompt') || undefined);
 
   placeholders: string[] = [];
-
-  constructor() {
-  }
 
   private updatePlaceholders() {
     if (this.prompt) {
@@ -27,6 +24,11 @@ export class PromptService {
   set prompt(prompt: string | undefined) {
     if (prompt !== this.prompt$.value) {
       this.prompt$.next(prompt);
+      if (prompt) {
+        localStorage.setItem('column-forge.prompt', prompt);
+      } else {
+        localStorage.removeItem('column-forge.prompt');
+      }
       this.updatePlaceholders();
     }
   }

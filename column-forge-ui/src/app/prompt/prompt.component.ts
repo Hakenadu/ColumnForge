@@ -89,7 +89,9 @@ export class PromptComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       });
 
-      this.promptService.prompt = 'you are a system for translating texts into ${language} language.\nonly answer with the translation.\n\nhere is the text:\n${text}';
+      if (!this.promptService.prompt) {
+        this.promptService.prompt = 'you are a system for translating texts into ${language} language.\nonly answer with the translation.\n\nhere is the text:\n${text}';
+      }
       this.changeDetectorRef.detectChanges();
     }
   }
