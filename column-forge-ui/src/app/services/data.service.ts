@@ -4,12 +4,13 @@ import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {PromptService} from './prompt.service';
 import {saveAs} from 'file-saver';
-import {Papa, UnparseConfig} from 'ngx-papaparse';
-import {UnparseData} from 'ngx-papaparse/lib/interfaces/unparse-data';
+import {Papa} from 'ngx-papaparse';
+import {ApiKeyService} from './api-key.service';
 
 interface TransformationRequest {
   model: string;
   query: string;
+  apiKey?: string;
   data: Data;
 }
 
@@ -28,6 +29,7 @@ export class DataService {
 
   constructor(private httpClient: HttpClient,
               private promptService: PromptService,
+              private apiKeyService: ApiKeyService,
               private papa: Papa) {
   }
 
@@ -71,6 +73,7 @@ export class DataService {
     const request: TransformationRequest = {
       model: 'gpt-3.5-turbo',
       query: this.promptService.prompt!,
+      apiKey: this.apiKeyService.apiKey,
       data: {
         type: 'complex',
         header: this.data.header.filter(h => h !== 'forgedColumn'),
@@ -82,11 +85,9 @@ export class DataService {
 
   updateDataAtIndex(targetIndex: number, sourceIndex: number, sourceData: Data) {
     if (this.data) {
-      console.log(this.data);
       this.data.header = sourceData.header;
       this.data.records[targetIndex] = sourceData.records[sourceIndex];
       this.data = Object.assign({}, this.data);
-      console.log(this.data);
     }
   }
 

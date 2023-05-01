@@ -19,6 +19,12 @@ import {SpinnerComponent} from './spinner/spinner.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {SettingsComponent} from './settings/settings.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatInputModule} from '@angular/material/input';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +32,9 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     PromptComponent,
     DataComponent,
     FooterComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    SettingsComponent,
+    WelcomeComponent
   ],
   imports: [
     AngularSplitModule,
@@ -41,8 +49,12 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatChipsModule,
     MatProgressSpinnerModule,
     MatMenuModule,
+    MatDialogModule,
+    MatSnackBarModule,
     NgParticlesModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatInputModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

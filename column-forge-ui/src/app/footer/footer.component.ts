@@ -1,5 +1,7 @@
 import {Component} from '@angular/core';
-import {DataService} from '../services/data.service';
+import {Data, DataService} from '../services/data.service';
+import {MatDialog} from '@angular/material/dialog';
+import {SettingsComponent} from '../settings/settings.component';
 
 @Component({
   selector: 'app-footer',
@@ -11,7 +13,7 @@ export class FooterComponent {
   loading = false;
   currentRecordIndex?: number;
 
-  constructor(public dataService: DataService) {
+  constructor(public dataService: DataService, private matDialog: MatDialog) {
   }
 
   forge() {
@@ -28,15 +30,33 @@ export class FooterComponent {
     }
     const index = this.currentRecordIndex;
     this.dataService.runCompletionOnRecord(this.currentRecordIndex).subscribe(data => {
-      this.dataService.updateDataAtIndex(index, 0, data);
-      if (this.currentRecordIndex !== undefined) {
-        this.currentRecordIndex! += 1;
+      this.updateDataAtIndex(index, data);
+    }, error => {
+      const header = this.dataService.data!.header;
+      if (!header.includes('forgedColumn')) {
+        header.push('forgedColumn');
       }
-      this.forgeResultForCurrentRecordIndex();
+      this.updateDataAtIndex(index, {
+        header: header,
+        records: [[...this.dataService.data!.records[index], '']],
+        type: 'complex'
+      });
     });
+  }
+
+  private updateDataAtIndex(index: number, data: Data) {
+    this.dataService.updateDataAtIndex(index, 0, data);
+    if (this.currentRecordIndex !== undefined) {
+      this.currentRecordIndex! += 1;
+    }
+    this.forgeResultForCurrentRecordIndex();
   }
 
   stopGenerating() {
     this.currentRecordIndex = undefined;
+  }
+
+  openSettings() {
+    this.matDialog.open(SettingsComponent);
   }
 }

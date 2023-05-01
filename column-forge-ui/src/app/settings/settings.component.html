@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>Settings</h2>
+<div mat-dialog-content>
+  <div>
+    <h1>Notice Regarding OpenAI API Key Usage on Our Website</h1>
+    <p>We appreciate your interest in using our platform to access OpenAI's services by entering your API key. We would
+      like to clarify our stance on the handling of your API key and our responsibility as the website owner.</p>
+    <p>Please note that when you provide your OpenAI API key on our website, we only use it to facilitate your access to
+      OpenAI's services, and we do not log or store your API key on our servers. Our primary purpose is to enable
+      seamless
+      communication between your account and OpenAI's API.</p>
+    <p>However, as the website owner, we would like to emphasize that we cannot be held responsible for any misuse,
+      unauthorized access, or other security breaches related to your API key. We highly recommend you to take necessary
+      precautions to protect your API key, such as using a strong, unique password for your account and enabling
+      two-factor authentication when possible.</p>
+    <p>In case of any issues or concerns regarding the security of your API key, we advise you to immediately contact
+      OpenAI and follow their guidelines for reporting security incidents.</p>
+    <p>By using our website and entering your OpenAI API key, you agree to these terms and acknowledge that you are
+      solely
+      responsible for the security and usage of your API key.</p>
+  </div>
+  <mat-form-field class="w-100">
+    <input matInput type="password" [(ngModel)]="apiKeyService.apiKey"
+           placeholder="API Key"/>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close>Close</button>
+</div>

@@ -3,18 +3,23 @@
     <h1>Column Forge</h1>
   </div>
   <div class="flex-grow-1 d-flex flex-row justify-content-end px-1 align-items-center">
-    <button mat-button
-            *ngIf="dataService.invalidMessages.length > 0"
-            class="me-2"
-            color="warn"
-            [matMenuTriggerFor]="menu">
-      there are errors
+    <button mat-icon-button
+            matTooltip="open settings"
+            (click)="openSettings()">
+      <mat-icon>settings</mat-icon>
     </button>
     <button *ngIf="dataService.data"
             mat-icon-button
             matTooltip="download dataset"
             (click)="dataService.downloadData('dataset.csv')">
       <mat-icon>download</mat-icon>
+    </button>
+    <button mat-button
+            *ngIf="dataService.invalidMessages.length > 0"
+            class="me-2"
+            color="warn"
+            [matMenuTriggerFor]="menu">
+      there are errors
     </button>
     <mat-menu #menu="matMenu">
       <div class="p-2 pe-4">
