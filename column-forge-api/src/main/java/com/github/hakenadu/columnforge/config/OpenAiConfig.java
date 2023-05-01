@@ -17,14 +17,8 @@ import retrofit2.Retrofit;
 public class OpenAiConfig {
 
 	@Bean
-	public OpenAiService apiClient(final ObjectMapper objectMapper,
-			final @Value("${column-forge.openai.api-key:#{null}}") String openAiApiKey) {
-		return createOpenAiService(objectMapper, openAiApiKey);
-	}
-
-	@Bean
-	public ObjectMapper objectMapper() {
-		return OpenAiService.defaultObjectMapper();
+	public OpenAiService apiClient(final @Value("${column-forge.openai.api-key:#{null}}") String openAiApiKey) {
+		return createOpenAiService(OpenAiService.defaultObjectMapper(), openAiApiKey);
 	}
 
 	public static OpenAiService createOpenAiService(final ObjectMapper objectMapper, final String openAiApiKey) {

@@ -1,6 +1,11 @@
+spring:
+  jackson:
+    deserialization:
+      FAIL_ON_UNKNOWN_PROPERTIES: true
 column-forge:
   openai:
     api-key: ${OPENAI_API_KEY:}
+    api-key-whitelist: ${OPENAI_API_KEY_WHITELIST:#{null}}
     models:
       - name: gpt-3.5-turbo
         chat: true
