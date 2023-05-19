@@ -5,6 +5,7 @@ public class TransformationRequest {
 	private String model;
 	private String apiKey;
 	private String query;
+	private String context;
 	private TransformationRequestData data;
 
 	public String getModel() {
@@ -29,6 +30,14 @@ public class TransformationRequest {
 
 	public void setQuery(final String query) {
 		this.query = query;
+	}
+
+	public String getContext() {
+		return context;
+	}
+
+	public void setContext(final String context) {
+		this.context = context;
 	}
 
 	public String getApiKey() {

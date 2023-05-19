@@ -50,8 +50,10 @@ public class ComplexTransformationService implements TransformationService {
 		}
 
 		final String query = queryResolver.resolve(request.getQuery(), systemContextVariables);
+		final String context = queryResolver.resolve(request.getContext(), systemContextVariables);
 
-		final String completion = chatCompletionService.getCompletion(request.getModel(), query, request.getApiKey());
+		final String completion = chatCompletionService.getCompletion(request.getModel(), context, query,
+				request.getApiKey());
 
 		return Stream.concat(inputRecord.stream(), Stream.of(completion)).toList();
 	}

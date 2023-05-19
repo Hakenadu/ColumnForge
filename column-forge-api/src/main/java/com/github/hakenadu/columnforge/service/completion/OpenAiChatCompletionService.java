@@ -18,24 +18,25 @@ public class OpenAiChatCompletionService implements CompletionService {
 	private OpenAiServiceProvider openAiServiceProvider;
 
 	@Override
-	public String getCompletion(final String model, final String query, final String apiKey) {
-		final ChatCompletionRequest request = createRequest(model, query);
+	public String getCompletion(final String model, final String context, final String query, final String apiKey) {
+		final ChatCompletionRequest request = createRequest(model, context, query);
 		return openAiServiceProvider.getService(apiKey).createChatCompletion(request).getChoices().get(0).getMessage()
 				.getContent();
 	}
 
 	@Override
-	public Flux<String> streamCompletion(final String model, final String query, final String apiKey) {
-		final ChatCompletionRequest request = createRequest(model, query);
+	public Flux<String> streamCompletion(final String model, final String context, final String query,
+			final String apiKey) {
+		final ChatCompletionRequest request = createRequest(model, context, query);
 		return Flux.from(openAiServiceProvider.getService(apiKey).streamChatCompletion(request)
 				.filter(chunk -> !chunk.getChoices().isEmpty()).map(chunk -> chunk.getChoices().get(0))
 				.map(ChatCompletionChoice::getMessage).filter(message -> message.getContent() != null)
 				.map(ChatMessage::getContent));
 	}
 
-	private ChatCompletionRequest createRequest(final String model, final String query) {
+	private ChatCompletionRequest createRequest(final String model, final String context, final String query) {
 		return ChatCompletionRequest.builder().temperature(0D).model(model)
-				.messages(List.of(new ChatMessage("user", query))).build();
+				.messages(List.of(new ChatMessage("system", context), new ChatMessage("user", query))).build();
 	}
 
 }

@@ -15,11 +15,11 @@
         <tr class="app-table-header-row">
           <th *ngFor="let header of dataService.data.header"
               [ngClass]="{
-                'app-table-cell-highlighted': promptService.placeholders.includes(header),
+                'app-table-cell-highlighted': promptService.contextPlaceholders.includes(header) || promptService.queryPlaceholders.includes(header),
                 'app-table-cell-forged': header==='forgedColumn'
               }"
               class="app-table-header-cell"
-              (click)="addPlaceholder(header)">
+              (click)="copyPlaceholderToClipboard(header)">
             {{ header }}
           </th>
         </tr>

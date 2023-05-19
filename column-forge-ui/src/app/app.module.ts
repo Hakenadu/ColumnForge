@@ -25,6 +25,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import { WelcomeComponent } from './welcome/welcome.component';
+import {ClipboardModule} from '@angular/cdk/clipboard';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
     AngularSplitModule,
     BrowserModule,
     BrowserAnimationsModule,
+    ClipboardModule,
     HttpClientModule,
     MatCardModule,
     MatButtonModule,

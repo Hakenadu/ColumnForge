@@ -10,6 +10,7 @@ import {Environment, ENVIRONMENT} from '../../environments/environment';
 interface TransformationRequest {
   model: string;
   query: string;
+  context: string;
   apiKey?: string;
   data: Data;
 }
@@ -40,17 +41,26 @@ export class DataService {
       result.push('no dataset opened');
       return result;
     }
-    if (this.promptService.placeholders.length === 0) {
-      result.push('no placeholders in prompt');
+    if (this.promptService.queryPlaceholders.length === 0) {
+      result.push('no placeholders in user message');
     }
-    for (const placeholder of this.promptService.placeholders) {
+    for (const placeholder of [
+      ...this.promptService.queryPlaceholders,
+      ...this.promptService.contextPlaceholders
+    ]) {
       if (placeholder === 'forgedColumn') {
-        result.push('forgedColumn can\'t be used as a placeholder');
+        this.pushMessageIfNotExists(result, 'forgedColumn can\'t be used as a placeholder');
       } else if (!this.data?.header.includes(placeholder)) {
-        result.push(`no dataset column with name ${placeholder}`);
+        this.pushMessageIfNotExists(result, `no dataset column with name ${placeholder}`);
       }
     }
     return result;
+  }
+
+  private pushMessageIfNotExists(messages: string[], message: string) {
+    if (!messages.includes(message)) {
+      messages.push(message);
+    }
   }
 
   resetDataset() {
@@ -73,7 +83,8 @@ export class DataService {
     }
     const request: TransformationRequest = {
       model: 'gpt-3.5-turbo',
-      query: this.promptService.prompt!,
+      query: this.promptService.query!,
+      context: this.promptService.context!,
       apiKey: this.apiKeyService.apiKey,
       data: {
         type: 'complex',

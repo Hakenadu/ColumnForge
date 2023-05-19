@@ -1,3 +1,11 @@
+.app-header {
+  ::ng-deep {
+    .mat-mdc-card-header-text {
+      width: 100%;
+    }
+  }
+}
+
 .app-subtitle {
   code {
     color: #E92E2E;

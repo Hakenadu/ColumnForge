@@ -5,8 +5,33 @@
               [gutterSize]="6">
 
       <as-split-area style="z-index: 0">
-        <div class="h-100 w-100">
-          <app-prompt></app-prompt>
+        <div class="h-100 w-100 d-flex flex-column">
+          <as-split class="app-split"
+                    direction="vertical"
+                    [gutterSize]="6">
+            <as-split-area>
+              <app-prompt [promptSubject]="promptService.context$"
+                          [placeholders]="promptService.contextPlaceholders"
+                          title="System"
+                          class="d-block h-100 w-100">
+                Define the System Context for the model.
+                This message is used as an input to the model using the role <strong>system</strong>.
+                <hr class="my-1"/>
+                Use placeholders in the format <code>{{'${myDataColumnName}'}}</code> to inject
+                values from the column <code>myDataColumnName</code> in your dataset.
+              </app-prompt>
+            </as-split-area>
+            <as-split-area>
+              <app-prompt [promptSubject]="promptService.query$"
+                          [placeholders]="promptService.queryPlaceholders"
+                          title="User"
+                          class="d-block h-100 w-100">
+                Defines the specific input for the model using the above defined system context.
+                This message is used as an input to the model using the role <strong>user</strong>.
+                Use placeholders in the same way as for the system context.
+              </app-prompt>
+            </as-split-area>
+          </as-split>
         </div>
       </as-split-area>
 

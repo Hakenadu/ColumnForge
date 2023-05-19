@@ -4,6 +4,8 @@ import {ClickMode, Engine, HoverMode, MoveDirection, OutMode} from "tsparticles-
 import {loadFull} from 'tsparticles';
 import {DataService} from '../services/data.service';
 import {PromptService} from '../services/prompt.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {Clipboard} from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-data',
@@ -90,7 +92,11 @@ export class DataComponent {
     await loadFull(engine);
   }
 
-  constructor(public dataService: DataService, public promptService: PromptService, private papa: Papa) {
+  constructor(public dataService: DataService,
+              public promptService: PromptService,
+              private clipboard: Clipboard,
+              private papa: Papa,
+              private matSnackBar: MatSnackBar) {
   }
 
   readFile(event: Event) {
@@ -111,9 +117,13 @@ export class DataComponent {
     }
   }
 
-  addPlaceholder(header: string) {
+  copyPlaceholderToClipboard(header: string) {
     if (header !== 'forgedColumn') {
-      this.promptService.prompt = this.promptService.prompt + '${' + header + '}'
+      const placeholder = '${' + header + '}';
+      this.clipboard.copy(placeholder);
+      this.matSnackBar.open(`Copied Placeholder ${placeholder} to clipboard`, 'OK', {
+        duration: 3333
+      });
     }
   }
 }

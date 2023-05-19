@@ -2,6 +2,7 @@ import {AfterViewChecked, Component, OnInit} from '@angular/core';
 import {BreakpointObserver, BreakpointState} from '@angular/cdk/layout';
 import {MatDialog} from '@angular/material/dialog';
 import {WelcomeComponent} from './welcome/welcome.component';
+import {PromptService} from './services/prompt.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,7 @@ export class AppComponent implements OnInit {
 
   splitDirection?: 'horizontal' | 'vertical';
 
-  constructor(private breakpointObserver: BreakpointObserver, private matDialog: MatDialog) {
+  constructor(public promptService: PromptService, private breakpointObserver: BreakpointObserver, private matDialog: MatDialog) {
     this.breakpointObserver
       .observe(['(min-width: 576px)'])
       .subscribe((state: BreakpointState) => {
@@ -26,5 +27,16 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.matDialog.open(WelcomeComponent);
+    if (!this.promptService.context) {
+      this.promptService.context = `you are a translation system.
+translate the following messages to \${destinationLanguage}.
+only answer the translation and do not add explanations.
+don't be too formal, the translations are meant to be used for a playful website.
+translate the text as if you're talking to a friend of yours.
+do not translate terms that are commonly used for websites in \${destinationLanguage} language.`;
+    }
+    if (!this.promptService.query) {
+      this.promptService.query = '${text}';
+    }
   }
 }

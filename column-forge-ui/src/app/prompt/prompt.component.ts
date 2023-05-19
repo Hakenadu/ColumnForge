@@ -1,9 +1,18 @@
 // @ts-nocheck
 
-import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 import ace, {Ace} from 'ace-builds';
 import {PromptService} from '../services/prompt.service';
-import {Subscription} from 'rxjs';
+import {BehaviorSubject, Subscription} from 'rxjs';
 
 const oop = ace.require('ace/lib/oop');
 const TextMode = ace.require('ace/mode/text').Mode;
@@ -48,9 +57,18 @@ export class PromptComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('editor')
   editorRef?: ElementRef<HTMLDivElement>;
 
+  @Input()
+  title?: string;
+
+  @Input()
+  promptSubject?: BehaviorSubject<string | undefined>;
+
+  @Input()
+  placeholders?: string[];
+
   private promptChangedSubscription?: Subscription;
 
-  constructor(public promptService: PromptService, private changeDetectorRef: ChangeDetectorRef) {
+  constructor(private changeDetectorRef: ChangeDetectorRef) {
 
   }
 
@@ -74,14 +92,17 @@ export class PromptComponent implements OnInit, AfterViewInit, OnDestroy {
       let lockEditorUpdate = false;
       this.editor.session.on('change', () => {
         if (!lockEditorUpdate) {
-          lockEditorUpdate = true;
-          this.promptService.prompt = this.editor.getValue();
-          this.changeDetectorRef.detectChanges();
-          lockEditorUpdate = false;
+          const newValue = this.editor.getValue();
+          if (this.promptSubject.value !== newValue) {
+            lockEditorUpdate = true;
+            this.promptSubject.next(newValue);
+            this.changeDetectorRef.detectChanges();
+            lockEditorUpdate = false;
+          }
         }
       });
 
-      this.promptChangedSubscription = this.promptService.prompt$.subscribe(prompt => {
+      this.promptChangedSubscription = this.promptSubject.subscribe(prompt => {
         if (!lockEditorUpdate) {
           lockEditorUpdate = true;
           this.editor.setValue(prompt, 1);
@@ -89,9 +110,6 @@ export class PromptComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       });
 
-      if (!this.promptService.prompt) {
-        this.promptService.prompt = 'you are a system for translating texts into ${language} language.\nonly answer with the translation.\n\nhere is the text:\n${text}';
-      }
       this.changeDetectorRef.detectChanges();
     }
   }

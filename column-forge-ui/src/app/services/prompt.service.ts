@@ -6,34 +6,56 @@ import {BehaviorSubject} from 'rxjs';
 })
 export class PromptService {
 
-  prompt$ = new BehaviorSubject<string | undefined>(localStorage.getItem('column-forge.prompt') || undefined);
+  query$ = new BehaviorSubject<string | undefined>(localStorage.getItem('column-forge.query') || undefined);
+  context$ = new BehaviorSubject<string | undefined>(localStorage.getItem('column-forge.context') || undefined);
 
-  placeholders: string[] = [];
+  queryPlaceholders: string[] = [];
 
-  private updatePlaceholders() {
-    if (this.prompt) {
-      const matches = this.prompt.match(/\${(.*?)}/g);
-      if (matches) {
-        this.placeholders = matches.map((match) => match.slice(2, -1));
-        return;
-      }
-    }
-    this.placeholders = [];
-  }
+  contextPlaceholders: string[] = [];
 
-  set prompt(prompt: string | undefined) {
-    if (prompt !== this.prompt$.value) {
-      this.prompt$.next(prompt);
-      if (prompt) {
-        localStorage.setItem('column-forge.prompt', prompt);
+
+  constructor() {
+    this.query$.subscribe(query => {
+      if (query) {
+        localStorage.setItem('column-forge.query', query);
       } else {
-        localStorage.removeItem('column-forge.prompt');
+        localStorage.removeItem('column-forge.query');
       }
-      this.updatePlaceholders();
-    }
+      this.queryPlaceholders = this.createPlaceholders(query);
+    });
+    this.context$.subscribe(context => {
+      if (context) {
+        localStorage.setItem('column-forge.context', context);
+      } else {
+        localStorage.removeItem('column-forge.context');
+      }
+      this.contextPlaceholders = this.createPlaceholders(context);
+    });
   }
 
-  get prompt(): string | undefined {
-    return this.prompt$.value;
+  private createPlaceholders(base: string | undefined): string[] {
+    if (base) {
+      const matches = base.match(/\${(.*?)}/g);
+      if (matches) {
+        return matches.map((match) => match.slice(2, -1));
+      }
+    }
+    return [];
+  }
+
+  set query(query: string | undefined) {
+    this.query$.next(query);
+  }
+
+  get query(): string | undefined {
+    return this.query$.value;
+  }
+
+  set context(context: string | undefined) {
+    this.context$.next(context);
+  }
+
+  get context(): string | undefined {
+    return this.context$.value;
   }
 }
