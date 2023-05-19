@@ -7,8 +7,10 @@
 }
 
 .app-subtitle {
-  code {
-    color: #E92E2E;
+  ::ng-deep {
+    code {
+      color: #E92E2E;
+    }
   }
 }
 

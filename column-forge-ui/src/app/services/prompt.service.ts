@@ -37,7 +37,7 @@ export class PromptService {
     if (base) {
       const matches = base.match(/\${(.*?)}/g);
       if (matches) {
-        return matches.map((match) => match.slice(2, -1));
+        return [...new Set(matches.map((match) => match.slice(2, -1)))];
       }
     }
     return [];
