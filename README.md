@@ -1,5 +1,5 @@
 # Column Forge
-We embarked on an initiative to internationalize a website, a journey that led to an unexpected but welcome outcome: the creation of an open-source project, named Column Forge. While public translators offered grammatically correct translations, they failed to provide contextually appropriate interpretations, an issue we experienced firsthand.
+We embarked on an initiative to internationalize a website, a journey that led to an unexpected but welcome outcome: the creation of this open-source project, named Column Forge. While public translators offered grammatically correct translations, they failed to provide contextually appropriate interpretations, an issue we experienced firsthand.
 
 Our solution was to leverage the power of OpenAI API models, which proved to be more effective when personalized to suit our unique use case. The exceptional translation performance we experienced with these personalized models was a substantial improvement over the standard public translators we had initially utilized.
 
@@ -9,7 +9,7 @@ Column Forge is an innovative application that enables the opening of datasets i
 
 With Column Forge, each row sends a request, and the response is then enhanced and documented in an additional column. This meticulous process results in an improved, contextually appropriate translation.
 
-We're excited to share Column Forge with the open-source community and look forward to seeing the innovative ways it's utilized and further developed.
+![](misc/demo.gif)
 
 ## Demo & Disclaimer
 Although we provide a demo at [column-forge.mseiche.de](https://column-forge.mseiche.de), it is not fully functional due to privacy and warranty considerations. This limitation is because we have not stored an API key on the server. Furthermore, it is not possible to configure your own API key on the frontend, as we've server-side restricted this to a fixed set of API keys belonging to specific individuals.
