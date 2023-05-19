@@ -27,8 +27,6 @@ services:
   column-forge-api:
     image: hakenadu/column-forge-api
     container_name: column-forge-api
-    build:
-      context: ./column-forge-api
     environment:
       OPENAI_API_KEY: sk-... # insert your api key here
     ports:
@@ -36,8 +34,6 @@ services:
   column-forge-ui:
     image: hakenadu/column-forge-ui
     container_name: column-forge-ui
-    build:
-      context: ./column-forge-ui
     environment:
       API_URL: http://localhost:8080
     ports:
