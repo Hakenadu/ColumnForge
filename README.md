@@ -1,13 +1,11 @@
 # Column Forge
-We embarked on an initiative to internationalize a website, a journey that led to an unexpected but welcome outcome: the creation of this open-source project, named Column Forge. While public translators offered grammatically correct translations, they failed to provide contextually appropriate interpretations, an issue we experienced firsthand.
+Column Forge is an open-source initiative born out of a necessity for improved, context-aware translations. While standard public translation tools offered grammatically correct output, they failed to provide translations that accurately represented the intended context. This was a challenge we encountered while working on internationalizing a website.
 
-Our solution was to leverage the power of OpenAI API models, which proved to be more effective when personalized to suit our unique use case. The exceptional translation performance we experienced with these personalized models was a substantial improvement over the standard public translators we had initially utilized.
+To tackle this problem, we utilized the powerful capabilities of the OpenAI API models. By personalizing requests to these models to align with our unique needs, we experienced a notable enhancement in the quality of translations, outperforming conventional public translators.
 
-When we encapsulated this process into a website, we recognized an opportunity to evolve our work into an open-source project that provided broader functionality.
+Column Forge now more generally serves as an innovative application for handling datasets in CSV format. It provides an interactive interface that enables users to specify inputs for a Large Language Model from the OpenAI API, row by row. These inputs are designed around placeholders that map to the column names within the dataset.
 
-Column Forge is an innovative application that enables the opening of datasets in CSV format. It provides an interactive interface where users can define inputs row by row for a Large Language Model from the OpenAI API. These inputs are based on placeholders that correspond to the column names of the dataset.
-
-With Column Forge, each row sends a request, and the response is then enhanced and documented in an additional column. This meticulous process results in an improved, contextually appropriate translation.
+With every row input, Column Forge sends a request and then processes the received response, augmenting and recording it in an additional column.
 
 ![](misc/demo.gif)
 
