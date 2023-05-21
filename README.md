@@ -1,7 +1,7 @@
 # Column Forge
 Column Forge is an open-source initiative born out of a necessity for improved, context-aware translations. While standard public translation tools offered grammatically correct output, they failed to provide translations that accurately represented the intended context. This was a challenge we encountered while working on internationalizing a website.
 
-To tackle this problem, we utilized the powerful capabilities of the OpenAI API models. By personalizing requests to these models to align with our unique needs, we experienced a notable enhancement in the quality of translations, outperforming conventional public translators.
+To tackle this problem, we utilized the powerful capabilities of OpenAI GPT models. By personalizing requests to the OpenAI API to align with our unique needs, we experienced a notable enhancement in the quality of translations, outperforming conventional public translators.
 
 Column Forge now more generally serves as an innovative application for handling datasets in CSV format. It provides an interactive interface that enables users to specify inputs for a Large Language Model from the OpenAI API, row by row. These inputs are designed around placeholders that map to the column names within the dataset.
 
